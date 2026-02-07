@@ -440,6 +440,50 @@ function launchConfetti() {
 }
 
 // =============================================
+// RESET
+// =============================================
+function resetQuest() {
+  localStorage.removeItem('michi-quest-progress');
+  map1 = null;
+  map2 = null;
+  selectedIngredients = new Set();
+  letterState = [];
+  currentSlot = 0;
+  currentShift = 0;
+
+  // Clear map containers so they re-init
+  document.getElementById('map1').innerHTML = '';
+  document.getElementById('map2').innerHTML = '';
+
+  // Reset letter pool
+  document.getElementById('letter-pool').innerHTML = '';
+  document.querySelectorAll('.letter-slot').forEach(s => {
+    s.textContent = '';
+    s.classList.remove('filled', 'correct', 'wrong');
+  });
+
+  // Reset ingredients
+  document.querySelectorAll('.ingredient').forEach(el => {
+    el.classList.remove('selected', 'wrong', 'correct');
+  });
+  document.getElementById('glass-contents').style.height = '0%';
+  document.getElementById('ingredient-count').textContent = '0';
+  document.getElementById('mix-btn').disabled = true;
+
+  // Reset cipher
+  document.querySelector('.cipher-decoded').style.color = '';
+
+  // Hide all success/error messages
+  document.querySelectorAll('.success-box, .error').forEach(el => el.classList.add('hidden'));
+
+  if (confettiInterval) clearInterval(confettiInterval);
+  document.getElementById('confetti').innerHTML = '';
+
+  showScreen('gate');
+  document.getElementById('password').value = '';
+}
+
+// =============================================
 // INIT
 // =============================================
 window.addEventListener('DOMContentLoaded', () => {
