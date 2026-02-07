@@ -6,11 +6,14 @@
   <title>🗺️ Michi's Quest — Schatzjagd 45</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="stars"></div>
   <div class="container">
+
     <!-- PASSWORD GATE -->
     <section id="gate" class="screen active">
       <div class="card">
@@ -27,7 +30,7 @@
       </div>
     </section>
 
-    <!-- STATION 1 -->
+    <!-- STATION 1: MAP OF FRANCE -->
     <section id="station1" class="screen">
       <div class="card">
         <div class="station-header">
@@ -38,20 +41,20 @@
         <h2>Character Creation<br><small>— Die Hugenotten —</small></h2>
         <div class="story-box">
           <p>Willkommen, <strong>Michi</strong>! Dein Abenteuer beginnt in Erlangen — einer Stadt, die von französischen Flüchtlingen geprägt wurde.</p>
-          <p>Im Jahr 1685 widerrief der französische König ein berühmtes Edikt, das den Protestanten Religionsfreiheit gewährt hatte. Tausende Hugenotten flohen — viele nach Erlangen.</p>
+          <p>Im Jahr 1685 widerrief der französische König ein berühmtes Edikt, das den Protestanten Religionsfreiheit gewährt hatte. Dieses Edikt trug den Namen einer französischen Stadt.</p>
         </div>
         <div class="riddle-box">
-          <p class="riddle">🧩 Wie hieß dieses widerrufene Edikt?<br><em>(Tipp: Es trägt den Namen einer französischen Stadt.)</em></p>
+          <p class="riddle">🗺️ Finde die Stadt auf der Karte!<br><em>Klicke auf die Stadt, die dem Edikt ihren Namen gab.</em></p>
         </div>
-        <div class="input-group">
-          <input type="text" id="answer1" placeholder="Deine Antwort..." autocomplete="off">
-          <button onclick="checkAnswer(1)" class="btn">✅ Prüfen</button>
+        <div id="map1" class="map-container"></div>
+        <p id="error1" class="error hidden">Das ist nicht die richtige Stadt... Denk an die Hugenotten! 🔍</p>
+        <div id="success1" class="success-box hidden">
+          <p>✅ <strong>Richtig! Das Edikt von Nantes!</strong><br>1598 gewährte es Religionsfreiheit — 1685 wurde es widerrufen.</p>
         </div>
-        <p id="error1" class="error hidden">Das stimmt nicht ganz... Google ist dein Freund! 🔍</p>
       </div>
     </section>
 
-    <!-- STATION 2 -->
+    <!-- STATION 2: MAP OF BRAZIL -->
     <section id="station2" class="screen">
       <div class="card">
         <div class="station-header">
@@ -62,20 +65,20 @@
         <h2>Side Quest<br><small>— Across the Atlantic —</small></h2>
         <div class="story-box">
           <p>Die Hugenotten flohen nicht nur nach Deutschland — manche gingen sogar nach <strong>Brasilien</strong>!</p>
-          <p>In den 1550er Jahren versuchten französische Kolonisten, eine Kolonie namens <strong>„France Antarctique"</strong> in einer berühmten brasilianischen Bucht zu gründen. Es war einer der ersten europäischen Siedlungsversuche in Südamerika.</p>
+          <p>In den 1550er Jahren versuchten französische Kolonisten, eine Kolonie namens <strong>„France Antarctique"</strong> in einer berühmten brasilianischen Bucht zu gründen.</p>
         </div>
         <div class="riddle-box">
-          <p class="riddle">🧩 Wie heißt diese Bucht?<br><em>(Tipp: Sie liegt in einer sehr berühmten Stadt...)</em></p>
+          <p class="riddle">🗺️ Finde die Bucht auf der Karte!<br><em>Wo lag „France Antarctique"?</em></p>
         </div>
-        <div class="input-group">
-          <input type="text" id="answer2" placeholder="Deine Antwort..." autocomplete="off">
-          <button onclick="checkAnswer(2)" class="btn">✅ Prüfen</button>
+        <div id="map2" class="map-container"></div>
+        <p id="error2" class="error hidden">Das ist nicht die richtige Bucht... Such mal nach „France Antarctique" 🌎</p>
+        <div id="success2" class="success-box hidden">
+          <p>✅ <strong>Richtig! Die Bucht von Guanabara!</strong><br>Heute besser bekannt als die Bucht von Rio de Janeiro. 🏖️</p>
         </div>
-        <p id="error2" class="error hidden">Nicht ganz... such mal nach „France Antarctique Brazil" 🌎</p>
       </div>
     </section>
 
-    <!-- STATION 3 -->
+    <!-- STATION 3: COCKTAIL BUILDER -->
     <section id="station3" class="screen">
       <div class="card">
         <div class="station-header">
@@ -86,21 +89,65 @@
         <h2>The Virtual Tavern<br><small>— 🍺 Die VR-Kneipe —</small></h2>
         <div class="story-box">
           <p>Du setzt deine <strong>Meta Quest</strong> auf und betrittst eine virtuelle Taverne. Der Wirt begrüßt dich:</p>
-          <p><em>„Willkommen, Abenteurer! In Erlangen kennen wir uns mit Bier aus — Bergkirchweih, du weißt schon. Aber heute serviere ich etwas aus Brasilien!"</em></p>
-          <p>Er stellt dir ein Glas hin: Limetten, Zucker, Eis, und ein Destillat aus Zuckerrohr...</p>
+          <p><em>„Willkommen! In Erlangen kennen wir uns mit Bier aus — Bergkirchweih! Aber heute mixen wir Brasiliens berühmtesten Cocktail!"</em></p>
         </div>
         <div class="riddle-box">
-          <p class="riddle">🧩 Wie heißt Brasiliens berühmtester Cocktail?<br><em>(Tipp: Du hast ihn bestimmt schon mal getrunken! 🍋)</em></p>
+          <p class="riddle">🍹 Wähle die richtigen 4 Zutaten!<br><em>Klicke auf die Zutaten für Brasiliens National-Cocktail.</em></p>
         </div>
-        <div class="input-group">
-          <input type="text" id="answer3" placeholder="Deine Antwort..." autocomplete="off">
-          <button onclick="checkAnswer(3)" class="btn">✅ Prüfen</button>
+        <div class="ingredient-grid" id="ingredients">
+          <div class="ingredient" data-name="lime" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🍋</span>
+            <span class="ingredient-label">Limetten</span>
+          </div>
+          <div class="ingredient" data-name="sugar" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🍬</span>
+            <span class="ingredient-label">Zucker</span>
+          </div>
+          <div class="ingredient" data-name="vodka" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🍸</span>
+            <span class="ingredient-label">Vodka</span>
+          </div>
+          <div class="ingredient" data-name="cachaca" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🥃</span>
+            <span class="ingredient-label">Cachaça</span>
+          </div>
+          <div class="ingredient" data-name="ice" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🧊</span>
+            <span class="ingredient-label">Eis</span>
+          </div>
+          <div class="ingredient" data-name="tequila" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🌵</span>
+            <span class="ingredient-label">Tequila</span>
+          </div>
+          <div class="ingredient" data-name="mint" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🌿</span>
+            <span class="ingredient-label">Minze</span>
+          </div>
+          <div class="ingredient" data-name="rum" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🏴‍☠️</span>
+            <span class="ingredient-label">Rum</span>
+          </div>
+          <div class="ingredient" data-name="tonic" onclick="toggleIngredient(this)">
+            <span class="ingredient-icon">🫧</span>
+            <span class="ingredient-label">Tonic Water</span>
+          </div>
         </div>
-        <p id="error3" class="error hidden">Hmm, das ist es nicht... denk an Limetten und Cachaça! 🍋</p>
+        <div class="glass-display">
+          <div class="glass" id="glass">
+            <div class="glass-contents" id="glass-contents"></div>
+            <div class="glass-label">🍹</div>
+          </div>
+          <p class="glass-count"><span id="ingredient-count">0</span> / 4 Zutaten</p>
+        </div>
+        <button onclick="checkCocktail()" class="btn" id="mix-btn" disabled>🍹 Mixen!</button>
+        <p id="error3" class="error hidden">Das schmeckt nicht richtig... Versuch's nochmal! 🤢</p>
+        <div id="success3" class="success-box hidden">
+          <p>✅ <strong>Perfekt! Eine Caipirinha!</strong><br>Limetten, Zucker, Eis und Cachaça — Saúde! 🇧🇷</p>
+        </div>
       </div>
     </section>
 
-    <!-- STATION 4 -->
+    <!-- STATION 4: LETTER SCRAMBLE -->
     <section id="station4" class="screen">
       <div class="card">
         <div class="station-header">
@@ -110,21 +157,34 @@
         <div class="icon">🐉</div>
         <h2>Boss Fight<br><small>— The Knowledge Dragon —</small></h2>
         <div class="story-box">
-          <p>Ein mächtiger <strong>Wissensdrache</strong> versperrt dir den Weg! 🐉 Er bewacht eine Truhe und stellt dir eine Frage über Erlangen:</p>
-          <p><em>„Die Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) ist eine der größten Unis Deutschlands. Sie ist nach zwei Markgrafen benannt: <strong>Friedrich</strong> und..."</em></p>
+          <p>Ein mächtiger <strong>Wissensdrache</strong> versperrt dir den Weg! 🐉</p>
+          <p><em>„Die Friedrich-Alexander-Universität Erlangen-Nürnberg ist nach zwei Markgrafen benannt. Friedrich kenne ich... aber wie hieß der andere?"</em></p>
+          <p>Sein Name ist auch der eines berühmten mazedonischen Eroberers... 👑</p>
         </div>
         <div class="riddle-box">
-          <p class="riddle">🧩 Wie heißt der zweite Markgraf?<br><em>(Tipp: Sein Name ist auch der eines berühmten mazedonischen Eroberers... 👑)</em></p>
+          <p class="riddle">🔤 Bringe die Buchstaben in die richtige Reihenfolge!<br><em>Klicke die Buchstaben der Reihe nach an.</em></p>
         </div>
-        <div class="input-group">
-          <input type="text" id="answer4" placeholder="Deine Antwort..." autocomplete="off">
-          <button onclick="checkAnswer(4)" class="btn">✅ Prüfen</button>
+        <div class="letter-answer" id="letter-answer">
+          <div class="letter-slot" data-index="0"></div>
+          <div class="letter-slot" data-index="1"></div>
+          <div class="letter-slot" data-index="2"></div>
+          <div class="letter-slot" data-index="3"></div>
+          <div class="letter-slot" data-index="4"></div>
+          <div class="letter-slot" data-index="5"></div>
+          <div class="letter-slot" data-index="6"></div>
+          <div class="letter-slot" data-index="7"></div>
+          <div class="letter-slot" data-index="8"></div>
         </div>
-        <p id="error4" class="error hidden">Der Drache lacht... Versuch's nochmal! 🐲</p>
+        <div class="letter-pool" id="letter-pool"></div>
+        <button onclick="resetLetters()" class="btn btn-secondary">🔄 Zurücksetzen</button>
+        <p id="error4" class="error hidden">Der Drache lacht... Das ist nicht richtig! 🐲</p>
+        <div id="success4" class="success-box hidden">
+          <p>✅ <strong>ALEXANDER! Der Drache ist besiegt!</strong><br>Markgraf Alexander von Brandenburg-Ansbach. ⚔️</p>
+        </div>
       </div>
     </section>
 
-    <!-- STATION 5 -->
+    <!-- STATION 5: CIPHER DECODER -->
     <section id="station5" class="screen">
       <div class="card">
         <div class="station-header">
@@ -134,18 +194,36 @@
         <div class="icon">🏆</div>
         <h2>Endgame<br><small>— Die letzte Prüfung —</small></h2>
         <div class="story-box">
-          <p>Du hast alle Prüfungen bestanden! Der Drache ist besiegt, die Taverne durchquert, und zwei Kontinente verbunden.</p>
-          <p>Nur noch ein letztes Rätsel trennt dich vom Schatz. Diesmal brauchst du ein bisschen <strong>Portugiesisch</strong>...</p>
-          <p>In Brasilien sagt man es mit Musik, Tanz und viel Freude. Heute ist ein besonderer Tag — <strong>DEIN Tag</strong>.</p>
+          <p>Du hast alle Prüfungen bestanden! Nur noch ein letztes Rätsel...</p>
+          <p>Ein verschlüsselter Text aus Brasilien wurde abgefangen. Du brauchst ein bisschen <strong>Portugiesisch</strong> und <strong>Kryptografie</strong>!</p>
+          <p>Heute ist ein besonderer Tag — <strong>DEIN Tag</strong>. Die Nachricht wurde mit einer <strong>Caesar-Verschlüsselung</strong> codiert.</p>
         </div>
         <div class="riddle-box">
-          <p class="riddle">🧩 Wie sagt man „Alles Gute zum Geburtstag" auf brasilianisches Portugiesisch?<br><em>(Zwei Wörter! 🎂)</em></p>
+          <p class="riddle">🔐 Entschlüssele die Nachricht!<br><em>Drehe am Rad, um den richtigen Versatz zu finden.</em></p>
         </div>
-        <div class="input-group">
-          <input type="text" id="answer5" placeholder="Deine Antwort..." autocomplete="off">
-          <button onclick="checkAnswer(5)" class="btn">✅ Prüfen</button>
+        <div class="cipher-display">
+          <div class="cipher-label">Verschlüsselt:</div>
+          <div class="cipher-text" id="cipher-encrypted">IHOLS DQLYHUVDULR</div>
+          <div class="cipher-arrow">⬇️</div>
+          <div class="cipher-label">Entschlüsselt:</div>
+          <div class="cipher-text cipher-decoded" id="cipher-decoded">IHOLS DQLYHUVDULR</div>
         </div>
-        <p id="error5" class="error hidden">Fast! Such mal „Happy Birthday" auf Portugiesisch... 🇧🇷</p>
+        <div class="cipher-control">
+          <label>Versatz (Shift):</label>
+          <div class="cipher-slider">
+            <button class="cipher-btn" onclick="adjustShift(-1)">◀</button>
+            <span class="cipher-value" id="shift-value">0</span>
+            <button class="cipher-btn" onclick="adjustShift(1)">▶</button>
+          </div>
+          <div class="shift-range">
+            <input type="range" id="shift-slider" min="0" max="25" value="0" oninput="setShift(parseInt(this.value))">
+          </div>
+        </div>
+        <button onclick="checkCipher()" class="btn" id="cipher-check-btn">🔓 Entschlüsseln!</button>
+        <p id="error5" class="error hidden">Das ergibt keinen Sinn... Dreh weiter am Rad! 🔐</p>
+        <div id="success5" class="success-box hidden">
+          <p>✅ <strong>FELIZ ANIVERSÁRIO!</strong><br>Alles Gute zum Geburtstag auf Portugiesisch! 🇧🇷🎂</p>
+        </div>
       </div>
     </section>
 
@@ -158,7 +236,7 @@
         <div class="progress"><div class="progress-fill" style="width: 100%"></div></div>
         <div class="birthday-message">
           <h2>🎂 Alles Gute zum 45. Geburtstag, Michi! 🎂</h2>
-          <p>Du hast es geschafft — alle 5 Stationen gemeistert, von Erlangens Hugenotten-Geschichte über brasilianische Buchten bis hin zur VR-Taverne!</p>
+          <p>Du hast es geschafft — alle 5 Stationen gemeistert! Von Erlangens Hugenotten-Geschichte über brasilianische Buchten, Cocktails in der VR-Taverne, bis zum Kampf gegen den Wissensdrachen!</p>
           <p>45 Jahre voller Abenteuer, und es gibt noch so viele Level vor dir. 🎮</p>
           <p>Möge dein nächstes Lebensjahr voller <strong>Critical Hits</strong>, epischer Loot-Drops und legendärer Quests sein — ob in der echten Welt, in VR, oder beim nächsten Geocache!</p>
           <p class="signature">🎮 Feliz Aniversário! 🇧🇷🇩🇪<br><br>— Mit Liebe von José & Diou 🚀</p>
