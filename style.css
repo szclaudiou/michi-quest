@@ -562,98 +562,50 @@ input[type="text"]::placeholder {
   font-weight: 700;
   letter-spacing: 0.15em;
   color: var(--error);
-  margin-bottom: 0.5rem;
   word-break: break-all;
 }
 
-.cipher-decoded {
+.cipher-clues {
+  background: var(--story-bg);
+  border: 1px solid rgba(108, 59, 170, 0.3);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.cipher-clue-title {
+  font-weight: 700;
   color: var(--accent);
-  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
 }
 
-.cipher-arrow {
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
+.cipher-clue {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-muted);
 }
 
-.cipher-control {
+.clue-num {
+  color: var(--riddle-border);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.cipher-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
   margin: 1rem 0;
 }
 
-.cipher-control label {
+.cipher-input label {
   font-size: 0.9rem;
   color: var(--text-muted);
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.cipher-slider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  margin: 0.5rem 0;
-}
-
-.cipher-btn {
-  width: 44px;
-  height: 44px;
-  background: rgba(108, 59, 170, 0.3);
-  border: 2px solid var(--riddle-border);
-  border-radius: 50%;
-  color: var(--text);
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.cipher-btn:hover {
-  background: rgba(108, 59, 170, 0.5);
-  transform: scale(1.1);
-}
-
-.cipher-value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent);
-  min-width: 3rem;
-  text-align: center;
-}
-
-.shift-range {
-  margin-top: 0.75rem;
-  padding: 0 1rem;
-}
-
-.shift-range input[type="range"] {
-  width: 100%;
-  -webkit-appearance: none;
-  height: 6px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 3px;
-  outline: none;
-}
-
-.shift-range input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 22px;
-  height: 22px;
-  background: var(--accent);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 8px var(--accent-glow);
-}
-
-.shift-range input[type="range"]::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  background: var(--accent);
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
 }
 
 /* === FINALE === */

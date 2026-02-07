@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <div class="stars"></div>
@@ -195,32 +195,33 @@
         <h2>Endgame<br><small>— Die letzte Prüfung —</small></h2>
         <div class="story-box">
           <p>Du hast alle Prüfungen bestanden! Nur noch ein letztes Rätsel...</p>
-          <p>Ein verschlüsselter Text aus Brasilien wurde abgefangen. Du brauchst ein bisschen <strong>Portugiesisch</strong> und <strong>Kryptografie</strong>!</p>
-          <p>Heute ist ein besonderer Tag — <strong>DEIN Tag</strong>. Die Nachricht wurde mit einer <strong>Caesar-Verschlüsselung</strong> codiert.</p>
+          <p>Ein verschlüsselter Text aus Brasilien wurde abgefangen. Du brauchst <strong>Portugiesisch</strong>, <strong>Kryptografie</strong> und ein bisschen Rechnen!</p>
+          <p>Die Nachricht wurde mit einer <strong>Caesar-Verschlüsselung</strong> codiert — jeder Buchstabe wurde um eine bestimmte Anzahl Stellen im Alphabet verschoben.</p>
         </div>
         <div class="riddle-box">
-          <p class="riddle">🔐 Entschlüssele die Nachricht!<br><em>Drehe am Rad, um den richtigen Versatz zu finden.</em></p>
+          <p class="riddle">🔐 Entschlüssele die Nachricht!</p>
         </div>
         <div class="cipher-display">
-          <div class="cipher-label">Verschlüsselt:</div>
-          <div class="cipher-text" id="cipher-encrypted">IHOLS DQLYHUVDULR</div>
-          <div class="cipher-arrow">⬇️</div>
-          <div class="cipher-label">Entschlüsselt:</div>
-          <div class="cipher-text cipher-decoded" id="cipher-decoded">IHOLS DQLYHUVDULR</div>
+          <div class="cipher-label">Verschlüsselte Nachricht:</div>
+          <div class="cipher-text" id="cipher-encrypted">IHOLC DQLYHUVDULR</div>
         </div>
-        <div class="cipher-control">
-          <label>Versatz (Shift):</label>
-          <div class="cipher-slider">
-            <button class="cipher-btn" onclick="adjustShift(-1)">◀</button>
-            <span class="cipher-value" id="shift-value">0</span>
-            <button class="cipher-btn" onclick="adjustShift(1)">▶</button>
+        <div class="cipher-clues">
+          <div class="cipher-clue-title">🔑 Hinweise zum Versatz:</div>
+          <div class="cipher-clue">
+            <span class="clue-num">1.</span>
+            <span>Wie sagt man <strong>„Ja"</strong> auf Portugiesisch? Zähle die Buchstaben dieses Wortes.</span>
           </div>
-          <div class="shift-range">
-            <input type="range" id="shift-slider" min="0" max="25" value="0" oninput="setShift(parseInt(this.value))">
+          <div class="cipher-clue">
+            <span class="clue-num">2.</span>
+            <span>Bei Caesar-Verschlüsselung: wenn der Versatz 1 ist, wird A→B. Wenn er 2 ist, wird A→C. Und so weiter...</span>
           </div>
         </div>
-        <button onclick="checkCipher()" class="btn" id="cipher-check-btn">🔓 Entschlüsseln!</button>
-        <p id="error5" class="error hidden">Das ergibt keinen Sinn... Dreh weiter am Rad! 🔐</p>
+        <div class="cipher-input">
+          <label>Deine entschlüsselte Nachricht:</label>
+          <input type="text" id="cipher-answer" placeholder="Was steht in der Nachricht?" autocomplete="off">
+          <button onclick="checkCipher()" class="btn">🔓 Entschlüsseln!</button>
+        </div>
+        <p id="error5" class="error hidden">Das stimmt nicht... Denk nochmal über den Versatz nach! 🔐</p>
         <div id="success5" class="success-box hidden">
           <p>✅ <strong>FELIZ ANIVERSÁRIO!</strong><br>Alles Gute zum Geburtstag auf Portugiesisch! 🇧🇷🎂</p>
         </div>
@@ -253,6 +254,6 @@
     </section>
   </div>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>

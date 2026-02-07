@@ -344,56 +344,22 @@ function resetLetters() {
 // =============================================
 // STATION 5: CAESAR CIPHER
 // =============================================
-const ORIGINAL_TEXT = 'FELIZ ANIVERSARIO';
-const CIPHER_SHIFT = 3; // Shift by 3 (classic Caesar)
-let currentShift = 0;
-
-function caesarEncrypt(text, shift) {
-  return text.split('').map(ch => {
-    if (ch >= 'A' && ch <= 'Z') {
-      return String.fromCharCode(((ch.charCodeAt(0) - 65 + shift) % 26 + 26) % 26 + 65);
-    }
-    return ch;
-  }).join('');
-}
-
-function caesarDecrypt(encrypted, shift) {
-  return caesarEncrypt(encrypted, -shift);
-}
+const CIPHER_ANSWERS = ['feliz aniversario', 'feliz aniversário'];
 
 function initCipher() {
-  const encrypted = caesarEncrypt(ORIGINAL_TEXT, CIPHER_SHIFT);
-  document.getElementById('cipher-encrypted').textContent = encrypted;
-  currentShift = 0;
-  updateCipherDisplay();
-}
-
-function updateCipherDisplay() {
-  const encrypted = document.getElementById('cipher-encrypted').textContent;
-  const decoded = caesarDecrypt(encrypted, currentShift);
-  document.getElementById('cipher-decoded').textContent = decoded;
-  document.getElementById('shift-value').textContent = currentShift;
-  document.getElementById('shift-slider').value = currentShift;
-}
-
-function adjustShift(delta) {
-  currentShift = ((currentShift + delta) % 26 + 26) % 26;
-  updateCipherDisplay();
-}
-
-function setShift(val) {
-  currentShift = val;
-  updateCipherDisplay();
+  // Reset input
+  const input = document.getElementById('cipher-answer');
+  if (input) input.value = '';
 }
 
 function checkCipher() {
-  const decoded = document.getElementById('cipher-decoded').textContent;
+  const input = document.getElementById('cipher-answer').value.trim().toLowerCase()
+    .replace(/[.,!?;:'"()]/g, '').replace(/\s+/g, ' ');
   const error = document.getElementById('error5');
   const success = document.getElementById('success5');
 
-  if (decoded === ORIGINAL_TEXT) {
+  if (CIPHER_ANSWERS.some(a => input === a)) {
     error.classList.add('hidden');
-    document.querySelector('.cipher-decoded').style.color = '#40c057';
     success.classList.remove('hidden');
     advanceFrom(5);
   } else {
@@ -449,8 +415,6 @@ function resetQuest() {
   selectedIngredients = new Set();
   letterState = [];
   currentSlot = 0;
-  currentShift = 0;
-
   // Clear map containers so they re-init
   document.getElementById('map1').innerHTML = '';
   document.getElementById('map2').innerHTML = '';
@@ -471,7 +435,8 @@ function resetQuest() {
   document.getElementById('mix-btn').disabled = true;
 
   // Reset cipher
-  document.querySelector('.cipher-decoded').style.color = '';
+  const cipherInput = document.getElementById('cipher-answer');
+  if (cipherInput) cipherInput.value = '';
 
   // Hide all success/error messages
   document.querySelectorAll('.success-box, .error').forEach(el => el.classList.add('hidden'));
