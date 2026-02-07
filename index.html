@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🗺️ Michi's Quest — Schatzjagd 45</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="container">
+    <!-- PASSWORD GATE -->
+    <section id="gate" class="screen active">
+      <div class="card">
+        <div class="icon">🗺️</div>
+        <h1>Michi's Quest</h1>
+        <p class="subtitle">Schatzjagd 45</p>
+        <p class="flavor">Ein digitales Abenteuer wartet auf dich, tapferer Held.<br>Aber zuerst... beweise, dass du es bist!</p>
+        <div class="input-group">
+          <label for="password">Gib das Passwort ein:</label>
+          <input type="text" id="password" placeholder="🔑 Dein Geburtstag (TTMM)" autocomplete="off" inputmode="numeric" maxlength="4">
+          <button onclick="checkPassword()" class="btn">⚔️ Quest starten</button>
+        </div>
+        <p id="gate-error" class="error hidden">Falsches Passwort! Versuch's nochmal.</p>
+      </div>
+    </section>
+
+    <!-- STATION 1 -->
+    <section id="station1" class="screen">
+      <div class="card">
+        <div class="station-header">
+          <span class="station-badge">Station 1 / 5</span>
+          <div class="progress"><div class="progress-fill" style="width: 0%"></div></div>
+        </div>
+        <div class="icon">⚔️</div>
+        <h2>Character Creation<br><small>— Die Hugenotten —</small></h2>
+        <div class="story-box">
+          <p>Willkommen, <strong>Michi</strong>! Dein Abenteuer beginnt in Erlangen — einer Stadt, die von französischen Flüchtlingen geprägt wurde.</p>
+          <p>Im Jahr 1685 widerrief der französische König ein berühmtes Edikt, das den Protestanten Religionsfreiheit gewährt hatte. Tausende Hugenotten flohen — viele nach Erlangen.</p>
+        </div>
+        <div class="riddle-box">
+          <p class="riddle">🧩 Wie hieß dieses widerrufene Edikt?<br><em>(Tipp: Es trägt den Namen einer französischen Stadt.)</em></p>
+        </div>
+        <div class="input-group">
+          <input type="text" id="answer1" placeholder="Deine Antwort..." autocomplete="off">
+          <button onclick="checkAnswer(1)" class="btn">✅ Prüfen</button>
+        </div>
+        <p id="error1" class="error hidden">Das stimmt nicht ganz... Google ist dein Freund! 🔍</p>
+      </div>
+    </section>
+
+    <!-- STATION 2 -->
+    <section id="station2" class="screen">
+      <div class="card">
+        <div class="station-header">
+          <span class="station-badge">Station 2 / 5</span>
+          <div class="progress"><div class="progress-fill" style="width: 20%"></div></div>
+        </div>
+        <div class="icon">🌊</div>
+        <h2>Side Quest<br><small>— Across the Atlantic —</small></h2>
+        <div class="story-box">
+          <p>Die Hugenotten flohen nicht nur nach Deutschland — manche gingen sogar nach <strong>Brasilien</strong>!</p>
+          <p>In den 1550er Jahren versuchten französische Kolonisten, eine Kolonie namens <strong>„France Antarctique"</strong> in einer berühmten brasilianischen Bucht zu gründen. Es war einer der ersten europäischen Siedlungsversuche in Südamerika.</p>
+        </div>
+        <div class="riddle-box">
+          <p class="riddle">🧩 Wie heißt diese Bucht?<br><em>(Tipp: Sie liegt in einer sehr berühmten Stadt...)</em></p>
+        </div>
+        <div class="input-group">
+          <input type="text" id="answer2" placeholder="Deine Antwort..." autocomplete="off">
+          <button onclick="checkAnswer(2)" class="btn">✅ Prüfen</button>
+        </div>
+        <p id="error2" class="error hidden">Nicht ganz... such mal nach „France Antarctique Brazil" 🌎</p>
+      </div>
+    </section>
+
+    <!-- STATION 3 -->
+    <section id="station3" class="screen">
+      <div class="card">
+        <div class="station-header">
+          <span class="station-badge">Station 3 / 5</span>
+          <div class="progress"><div class="progress-fill" style="width: 40%"></div></div>
+        </div>
+        <div class="icon">🍹</div>
+        <h2>The Virtual Tavern<br><small>— 🍺 Die VR-Kneipe —</small></h2>
+        <div class="story-box">
+          <p>Du setzt deine <strong>Meta Quest</strong> auf und betrittst eine virtuelle Taverne. Der Wirt begrüßt dich:</p>
+          <p><em>„Willkommen, Abenteurer! In Erlangen kennen wir uns mit Bier aus — Bergkirchweih, du weißt schon. Aber heute serviere ich etwas aus Brasilien!"</em></p>
+          <p>Er stellt dir ein Glas hin: Limetten, Zucker, Eis, und ein Destillat aus Zuckerrohr...</p>
+        </div>
+        <div class="riddle-box">
+          <p class="riddle">🧩 Wie heißt Brasiliens berühmtester Cocktail?<br><em>(Tipp: Du hast ihn bestimmt schon mal getrunken! 🍋)</em></p>
+        </div>
+        <div class="input-group">
+          <input type="text" id="answer3" placeholder="Deine Antwort..." autocomplete="off">
+          <button onclick="checkAnswer(3)" class="btn">✅ Prüfen</button>
+        </div>
+        <p id="error3" class="error hidden">Hmm, das ist es nicht... denk an Limetten und Cachaça! 🍋</p>
+      </div>
+    </section>
+
+    <!-- STATION 4 -->
+    <section id="station4" class="screen">
+      <div class="card">
+        <div class="station-header">
+          <span class="station-badge">Station 4 / 5</span>
+          <div class="progress"><div class="progress-fill" style="width: 60%"></div></div>
+        </div>
+        <div class="icon">🐉</div>
+        <h2>Boss Fight<br><small>— The Knowledge Dragon —</small></h2>
+        <div class="story-box">
+          <p>Ein mächtiger <strong>Wissensdrache</strong> versperrt dir den Weg! 🐉 Er bewacht eine Truhe und stellt dir eine Frage über Erlangen:</p>
+          <p><em>„Die Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) ist eine der größten Unis Deutschlands. Sie ist nach zwei Markgrafen benannt: <strong>Friedrich</strong> und..."</em></p>
+        </div>
+        <div class="riddle-box">
+          <p class="riddle">🧩 Wie heißt der zweite Markgraf?<br><em>(Tipp: Sein Name ist auch der eines berühmten mazedonischen Eroberers... 👑)</em></p>
+        </div>
+        <div class="input-group">
+          <input type="text" id="answer4" placeholder="Deine Antwort..." autocomplete="off">
+          <button onclick="checkAnswer(4)" class="btn">✅ Prüfen</button>
+        </div>
+        <p id="error4" class="error hidden">Der Drache lacht... Versuch's nochmal! 🐲</p>
+      </div>
+    </section>
+
+    <!-- STATION 5 -->
+    <section id="station5" class="screen">
+      <div class="card">
+        <div class="station-header">
+          <span class="station-badge">Station 5 / 5</span>
+          <div class="progress"><div class="progress-fill" style="width: 80%"></div></div>
+        </div>
+        <div class="icon">🏆</div>
+        <h2>Endgame<br><small>— Die letzte Prüfung —</small></h2>
+        <div class="story-box">
+          <p>Du hast alle Prüfungen bestanden! Der Drache ist besiegt, die Taverne durchquert, und zwei Kontinente verbunden.</p>
+          <p>Nur noch ein letztes Rätsel trennt dich vom Schatz. Diesmal brauchst du ein bisschen <strong>Portugiesisch</strong>...</p>
+          <p>In Brasilien sagt man es mit Musik, Tanz und viel Freude. Heute ist ein besonderer Tag — <strong>DEIN Tag</strong>.</p>
+        </div>
+        <div class="riddle-box">
+          <p class="riddle">🧩 Wie sagt man „Alles Gute zum Geburtstag" auf brasilianisches Portugiesisch?<br><em>(Zwei Wörter! 🎂)</em></p>
+        </div>
+        <div class="input-group">
+          <input type="text" id="answer5" placeholder="Deine Antwort..." autocomplete="off">
+          <button onclick="checkAnswer(5)" class="btn">✅ Prüfen</button>
+        </div>
+        <p id="error5" class="error hidden">Fast! Such mal „Happy Birthday" auf Portugiesisch... 🇧🇷</p>
+      </div>
+    </section>
+
+    <!-- FINAL REVEAL -->
+    <section id="finale" class="screen">
+      <div class="card finale-card">
+        <div class="confetti-container" id="confetti"></div>
+        <div class="icon big">🎉</div>
+        <h1>Quest Complete!</h1>
+        <div class="progress"><div class="progress-fill" style="width: 100%"></div></div>
+        <div class="birthday-message">
+          <h2>🎂 Alles Gute zum 45. Geburtstag, Michi! 🎂</h2>
+          <p>Du hast es geschafft — alle 5 Stationen gemeistert, von Erlangens Hugenotten-Geschichte über brasilianische Buchten bis hin zur VR-Taverne!</p>
+          <p>45 Jahre voller Abenteuer, und es gibt noch so viele Level vor dir. 🎮</p>
+          <p>Möge dein nächstes Lebensjahr voller <strong>Critical Hits</strong>, epischer Loot-Drops und legendärer Quests sein — ob in der echten Welt, in VR, oder beim nächsten Geocache!</p>
+          <p class="signature">🎮 Feliz Aniversário! 🇧🇷🇩🇪<br><br>— Mit Liebe von José & Diou 🚀</p>
+        </div>
+        <div class="achievement">
+          <span class="achievement-badge">🏅</span>
+          <div>
+            <strong>Achievement Unlocked!</strong><br>
+            <em>„Schatzjäger Level 45"</em>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
